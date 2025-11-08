@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
-urlpatterns = [
-   path('snippets/', views.SnippetList.as_view()),
-   path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
-]
 
+router = DefaultRouter()
+router.register(r'snippets', views.SnippetViewSet)
+router.register(r'users', views.UserViewSet)
+
+urlpatterns = [
+   path('', include(router.urls)),
+]
